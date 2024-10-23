@@ -1,0 +1,56 @@
+{
+    "lesson_name": "Intro to Python",
+    "description": "This lesson covers the basics of Python.",
+    "steps": [
+        {
+            "instruction": "If at any point you'd like more information on a particular topic related to Python, you can search online or type help().",
+            "type": "chunk"
+        },
+        {
+            "instruction": "What is 2 + 2?",
+            "type": "input",
+            "answer": [
+                4,
+                4.0
+            ]
+        },
+        {
+            "instruction": "What is the Python function to print something?",
+            "type": "input",
+            "answer": [
+                "print()",
+                "print"
+            ]
+        },
+        {
+            "instruction": "Create a list with elements 1, 2, and 3.",
+            "type": "input",
+            "answer": [
+                [
+                    1,
+                    2,
+                    3
+                ],
+                "[1, 2, 3]"
+            ]
+        },
+        {
+            "instruction": "Assign 2 + 4 to a variable named 'x'.",
+            "type": "input",
+            "answer": {
+                "type": "assignment",
+                "variable": "x",
+                "value": 6
+            }
+        },
+        {
+            "instruction": "Now type 'x' to display the value of x.",
+            "type": "input",
+            "answer": {
+                "type": "check_variable",
+                "variable": "x",
+                "value": 6
+            }
+        }
+    ]
+}

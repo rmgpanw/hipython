@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "hipython"
+version = "0.1.0"
+description = ""
+authors = ["rmgpanw <rmgpanw@ucl.ac.uk>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+include = [
+    "swirlpy/lessons/lesson.json"
+]
