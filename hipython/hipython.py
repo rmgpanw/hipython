@@ -27,7 +27,7 @@ class Lesson:
         self.display_info()
 
     def bye(self):
-        print("Exiting the lesson. Your progress has been saved.")
+        print("Exiting the lesson.")
 
     def check_answer(self, user_input, correct_answers):
         try:
@@ -120,6 +120,7 @@ class Lesson:
                 print("Unknown step type.")
                 
         print("Lesson complete! Congratulations!")
+        return('main_menu')
 
 def display_menu():
     """Displays a list of available lessons and allows the user to select one."""
@@ -130,18 +131,20 @@ def display_menu():
     print("Select a lesson to start:")
     for idx, lesson in lessons.items():
         print(f"{idx}. Lesson {idx}")
-    
+    print("0. Quit")  # Option to quit from the main menu
+
     try:
-        selection = int(input("Enter the number of the lesson you want to start: "))
-        if selection in lessons:
+        selection = int(input("Enter the number of the lesson you want to start (or 0 to quit): "))
+        if selection == 0:
+            print("Exiting the program. Goodbye!")
+        elif selection in lessons:
             run_lesson(lessons[selection])
         else:
-            print("Invalid selection. Returning to menu...")
+            print("\n**Invalid selection**\n")
             display_menu()  # Call the menu again on invalid input
     except ValueError:
-        print("Invalid input. Please enter a number.")
+        print("\n**Invalid input. Please enter a number**\n")
         display_menu()
-
 
 def run_lesson(lesson_file):
     """Runs the selected lesson and handles returning to the main menu."""
