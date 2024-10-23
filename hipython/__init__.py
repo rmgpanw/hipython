@@ -1,3 +1,3 @@
-from .hipython import start_lesson
+from .hipython import start
 
-__all__ = ['start_lesson']
+__all__ = ['start']

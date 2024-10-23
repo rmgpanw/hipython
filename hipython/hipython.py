@@ -16,7 +16,7 @@ class Lesson:
         print("Available commands:")
         print(" - info() to display this list of options.")
         print(" - skip() to skip the current question.")
-        print(" - play() to enter play mode.")
+        print(" - main() to return to main menu.")
         print(" - bye() to exit.")
 
     def skip(self):
@@ -77,7 +77,10 @@ class Lesson:
                     continue
                 elif user_input == 'bye()':
                     self.bye()
-                    break
+                    return 'exit_lesson'
+                elif user_input == 'main()':
+                    print("Returning to the main menu...")
+                    return 'main_menu'  # Return to signal that we should return to the main menu
 
                 if isinstance(step['answer'], dict) and step['answer']['type'] == 'assignment':
                     # Handle variable assignment
@@ -115,7 +118,42 @@ class Lesson:
 
             else:
                 print("Unknown step type.")
+                
+        print("Lesson complete! Congratulations!")
 
-def start_lesson():
-    lesson = Lesson('hipython/lessons/lesson.json')
-    lesson.run()
+def display_menu():
+    """Displays a list of available lessons and allows the user to select one."""
+    lessons = {
+        1: 'hipython/lessons/lesson.json',  # Add more lessons here if needed
+    }
+    print("Welcome to HiPython!")
+    print("Select a lesson to start:")
+    for idx, lesson in lessons.items():
+        print(f"{idx}. Lesson {idx}")
+    
+    try:
+        selection = int(input("Enter the number of the lesson you want to start: "))
+        if selection in lessons:
+            run_lesson(lessons[selection])
+        else:
+            print("Invalid selection. Returning to menu...")
+            display_menu()  # Call the menu again on invalid input
+    except ValueError:
+        print("Invalid input. Please enter a number.")
+        display_menu()
+
+
+def run_lesson(lesson_file):
+    """Runs the selected lesson and handles returning to the main menu."""
+    lesson = Lesson(lesson_file)
+    result = lesson.run()
+
+    if result == "main_menu":
+        display_menu()
+    elif result == "exit_lesson":
+        print("Goodbye!")
+
+
+def start():
+    """Start the HiPython program."""
+    display_menu()
