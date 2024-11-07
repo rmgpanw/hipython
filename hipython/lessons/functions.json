@@ -1,0 +1,145 @@
+{
+    "lesson_name": "Python Functions",
+    "description": "Welcome to the Functions lesson! Here you'll learn how to create and use functions in Python. We'll cover function definition, parameters, return values, and more.",
+    "steps": [
+        {
+            "type": "chunk",
+            "instruction": "Functions are reusable blocks of code that perform specific tasks. They help organize code and make it more reusable."
+        },
+        {
+            "type": "input",
+            "instruction": "Let's start with a simple function. Define a function called greet that prints 'Hello!':",
+            "hint": "Use the 'def' keyword followed by the function name and parentheses. Don't forget the colon!",
+            "answer": {
+                "type": "expression",
+                "value": [
+                    "def greet():\n    print('Hello!')",
+                    "def greet():\n    print(\"Hello!\")"
+                ]
+            }
+        },
+        {
+            "type": "input",
+            "instruction": "Now call your greet function:",
+            "hint": "Type the function name followed by parentheses",
+            "answer": {
+                "type": "expression",
+                "value": "greet()"
+            }
+        },
+        {
+            "type": "chunk",
+            "instruction": "Great! Now let's learn about parameters. Parameters allow functions to accept input values."
+        },
+        {
+            "type": "input",
+            "instruction": "Define a function called 'multiply' that takes two parameters (x and y) and returns their product:",
+            "hint": "Use the 'return' keyword to send back the result of x * y",
+            "answer": {
+                "type": "expression",
+                "value": [
+                    "def multiply(x, y):\n    return x * y",
+                    "def multiply(x, y):\n    return x*y"
+                ]
+            }
+        },
+        {
+            "type": "input",
+            "instruction": "Test your multiply function with the numbers 6 and 7:",
+            "hint": "Call multiply(6, 7)",
+            "answer": {
+                "type": "expression",
+                "value": "multiply(6, 7)"
+            }
+        },
+        {
+            "type": "chunk",
+            "instruction": "Now let's try something more complex. We'll create a function that takes a list and returns the average."
+        },
+        {
+            "type": "input",
+            "instruction": "Define a function called 'average' that takes a list of numbers, 'numbers', and returns their average. Remember to handle empty lists!",
+            "hint": "Use sum() to add all numbers and len() to count them. Don't forget to check if the list is empty!",
+            "answer": {
+                "type": "expression",
+                "value": [
+                    "def average(numbers):\n    if not numbers:\n        return 0\n    return sum(numbers) / len(numbers)",
+                    "def average(numbers):\n    if len(numbers) == 0:\n        return 0\n    return sum(numbers) / len(numbers)",
+                    "def average(numbers):\n    return 0 if not numbers else sum(numbers) / len(numbers)"
+                ]
+            }
+        },
+        {
+            "type": "input",
+            "instruction": "Test your average function with the list [10, 20, 30]:",
+            "hint": "Call average([10, 20, 30])",
+            "answer": {
+                "type": "expression",
+                "value": "average([10, 20, 30])"
+            }
+        },
+        {
+            "type": "chunk",
+            "instruction": "Let's learn about default parameters. Default parameters provide fallback values when arguments aren't provided."
+        },
+        {
+            "type": "input",
+            "instruction": "Define a function called 'power' that takes two parameters: base and exponent. Make the exponent parameter default to 2:",
+            "hint": "Use the syntax def power(base, exponent=2)",
+            "answer": {
+                "type": "expression",
+                "value": [
+                    "def power(base, exponent=2):\n    return base ** exponent",
+                    "def power(base, exponent=2):\n    return pow(base, exponent)"
+                ]
+            }
+        },
+        {
+            "type": "input",
+            "instruction": "Test your power function with just one argument: power(3)",
+            "hint": "This will use the default exponent of 2",
+            "answer": {
+                "type": "expression",
+                "value": "power(3)"
+            }
+        },
+        {
+            "type": "input",
+            "instruction": "Now test power with both arguments: power(2, 3)",
+            "hint": "This will calculate 2 raised to the power of 3",
+            "answer": {
+                "type": "expression",
+                "value": "power(2, 3)"
+            }
+        },
+        {
+            "type": "chunk",
+            "instruction": "Finally, let's create a more complex function that uses all we've learned. We'll make a function that processes a list of numbers."
+        },
+        {
+            "type": "input",
+            "instruction": "Define a function called 'process_numbers' that takes a list of numbers, 'numbers', and returns a dictionary containing the sum, average, minimum, and maximum values:",
+            "hint": "Use sum(), len(), min(), and max() functions. Return a dictionary with these values.",
+            "answer": {
+                "type": "expression",
+                "value": [
+                    "def process_numbers(numbers):\n    if not numbers:\n        return {'sum': 0, 'average': 0, 'min': None, 'max': None}\n    return {\n        'sum': sum(numbers),\n        'average': sum(numbers) / len(numbers),\n        'min': min(numbers),\n        'max': max(numbers)\n    }",
+                    "def process_numbers(numbers):\n    return {'sum': sum(numbers), 'average': sum(numbers)/len(numbers), 'min': min(numbers), 'max': max(numbers)} if numbers else {'sum': 0, 'average': 0, 'min': None, 'max': None}"
+                ]
+            }
+        },
+        {
+            "type": "input",
+            "instruction": "Test your process_numbers function with the list [1, 2, 3, 4, 5]:",
+            "hint": "Call process_numbers([1, 2, 3, 4, 5])",
+            "answer": {
+                "type": "expression",
+                "value": "process_numbers([1, 2, 3, 4, 5])"
+            }
+        },
+        {
+            "type": "chunk",
+            "instruction": "Congratulations! You've completed the functions lesson. You now know how to:\n- Define simple and complex functions\n- Use parameters and return values\n- Work with default parameters\n- Create functions that process data and return multiple values in a dictionary"
+        }
+    ]
+}

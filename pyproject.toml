@@ -14,5 +14,6 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 include = [
-    "hipython/lessons/basics.json"
+    "hipython/lessons/basics.json",
+    "hipython/lessons/functions.json"
 ]

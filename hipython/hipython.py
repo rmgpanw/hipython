@@ -11,6 +11,90 @@ class Lesson:
         self.lesson_data = self.load_lesson()
         self.current_step = 0
         self.env = SimpleNamespace()
+        self.env.__dict__.update(self.create_safe_env())  # Update namespace with safe builtins
+        self.add_hint_system()  # Initialize hint system
+        
+    def create_safe_env(self):
+        """Create a restricted environment for code execution"""
+        safe_builtins = {
+            'abs': abs, 'all': all, 'any': any, 'ascii': ascii, 
+            'bin': bin, 'bool': bool, 'chr': chr, 'dict': dict,
+            'dir': dir, 'divmod': divmod, 'enumerate': enumerate, 
+            'filter': filter, 'float': float, 'format': format,
+            'frozenset': frozenset, 'hash': hash, 'hex': hex, 
+            'int': int, 'isinstance': isinstance, 'issubclass': issubclass,
+            'len': len, 'list': list, 'map': map, 'max': max, 
+            'min': min, 'oct': oct, 'ord': ord, 'pow': pow,
+            'print': print, 'range': range, 'repr': repr, 
+            'reversed': reversed, 'round': round, 'set': set, 
+            'slice': slice, 'sorted': sorted, 'str': str, 
+            'sum': sum, 'tuple': tuple, 'type': type, 'zip': zip
+        }
+        return safe_builtins
+
+    def get_multiline_input(self):
+        """Collect multi-line input with editing capabilities"""
+        print("Enter your code (press Enter twice when done):")
+        print("Use 'show' to see current input")
+        print("Use '<<' to remove last line")
+        print("Use 'cancel' to start over")
+        
+        lines = []
+        while True:
+            prompt = "... " if lines else ">>> "
+            line = input(prompt).rstrip()
+            
+            # Handle special commands
+            if not lines and line in ('skip()', 'info()', 'bye()', 'main()', 'hint()'):
+                return line
+                
+            # Special editing commands
+            if line == '<<':  # Remove last line
+                if lines:
+                    removed = lines.pop()
+                    print(f"Removed: {removed}")
+                continue
+            elif line == 'cancel':  # Cancel entire input
+                print("Input cancelled")
+                lines = []
+                continue
+            elif line == 'show':  # Show current input
+                print("\nCurrent input:")
+                for i, l in enumerate(lines, 1):
+                    print(f"{i}: {l}")
+                print()  # Extra newline for readability
+                continue
+                
+            # Handle empty lines
+            if not line:
+                if lines:  # Empty line with content means we're done
+                    final_code = '\n'.join(lines)
+                    print("\nFinal code:")
+                    print(final_code)
+                    print()  # Extra newline for readability
+                    return final_code
+                continue  # Empty line without content is ignored
+                
+            lines.append(line)
+
+    def add_hint_system(self):
+        """Add a hint system to the Lesson class"""
+        def show_hint():
+            current_step = self.lesson_data['steps'][self.current_step]
+            if 'hint' in current_step:
+                print(f"\nHint: {current_step['hint']}")
+            else:
+                print("\nNo hint available for this step.")
+        
+        self.env.hint = show_hint
+
+    def add_progress_tracking(self):
+        """Track user progress through lessons"""
+        total_steps = len([step for step in self.lesson_data['steps'] 
+                        if step['type'] == 'input'])
+        current_input_step = len([step for step in self.lesson_data['steps'][:self.current_step] 
+                                if step['type'] == 'input'])
+        print(f"\nProgress: {current_input_step}/{total_steps} exercises completed")
 
     def load_lesson(self):
         with open(self.lesson_file) as f:
@@ -22,7 +106,13 @@ class Lesson:
         print(" - skip() to skip the current question")
         print(" - main() to return to main menu")
         print(" - bye() to exit")
-        print(" - help(object) for Python help\n")
+        print(" - hint() to get a hint for the current question")
+        print(" - help(object) for Python help")
+        print("\nMulti-line input commands:")
+        print(" - Enter blank line to finish input")
+        print(" - << to remove the last line")
+        print(" - show to display current input")
+        print(" - cancel to start over\n")
 
     def skip(self):
         print("Skipping the current question.")
@@ -74,25 +164,60 @@ class Lesson:
             # Execute the code and show output
             success, output, error, result = self.execute_user_code(user_input)
             
-            if output:
-                print("Output:", output.rstrip())
-            
             if error:
                 print("Error:", error)
                 return False
+
+            # Handle output like REPL
+            if output:
+                print("Output:")
+                print(output.rstrip())
+                print("\n-----------\n")
+            
+            # Print result like REPL if it's an expression that returns a value
+            if result is not None and isinstance(user_ast.body[0], ast.Expr):
+                print("Output:")
+                if isinstance(result, str):
+                    print(f"'{result}'")
+                else:
+                    print(repr(result))
+                print("\n-----------\n")
             
             # Check against correct answers
             for correct_answer in correct_answers:
+                # First try direct AST comparison
                 correct_ast = ast.parse(correct_answer)
                 correct_ast_str = ast.dump(correct_ast)
-
+                
                 if user_ast_str == correct_ast_str:
                     return True
+                    
+                # If AST comparison fails, try evaluating and comparing results
+                try:
+                    correct_result = eval(compile(correct_answer, '<string>', 'eval'), vars(self.env))
+                    # Compare type and value
+                    if result is not None:
+                        expected_type = type(correct_result)
+                        if isinstance(result, expected_type):
+                            # Convert to list for sequence comparison, or direct compare for other types
+                            if isinstance(correct_result, (list, tuple, set)):
+                                if list(result) == list(correct_result):
+                                    return True
+                            elif isinstance(correct_result, dict):
+                                if dict(result) == correct_result:
+                                    return True
+                            else:
+                                if result == correct_result:
+                                    return True
+                        else:
+                            print(f"Expected {expected_type.__name__}, but got {type(result).__name__}")
+                except:
+                    continue
 
             if result is not None:
                 print("Result:", result)
             return False
-            
+                
         except SyntaxError as e:
             print(f"Syntax Error: {str(e)}")
             return False
@@ -121,8 +246,9 @@ class Lesson:
 
             elif step['type'] == 'input':
                 print("\n" + step['instruction'])
+                self.add_progress_tracking()  # Show progress
                 while True:
-                    user_input = input(">>> ").strip()
+                    user_input = self.get_multiline_input()  # Use multi-line input
                     
                     if user_input == 'skip()':
                         self.skip()
@@ -136,6 +262,9 @@ class Lesson:
                     elif user_input == 'main()':
                         print("Returning to the main menu...")
                         return 'main_menu'
+                    elif user_input == 'hint()':  # Add hint command handler
+                        self.env.hint()
+                        continue
                     elif user_input.startswith('help('):
                         try:
                             eval(user_input, vars(self.env))
@@ -160,7 +289,7 @@ class Lesson:
                                 
                             actual_value = getattr(self.env, variable_name, None)
                             if actual_value == expected_value:
-                                print(f"Correct! {variable_name} = {actual_value}")
+                                print("Correct!")
                                 self.current_step += 1
                                 break
                             else:

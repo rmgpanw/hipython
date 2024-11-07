@@ -33,6 +33,7 @@
         {
             "type": "input",
             "instruction": "Create a variable named x and assign it the value 10:",
+            "hint": "Use the assignment operator =, like this: x = value",
             "answer": {
                 "type": "assignment",
                 "variable": "x",
