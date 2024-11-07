@@ -1,0 +1,106 @@
+{
+    "lesson_name": "Python Basics",
+    "description": "Welcome to HiPython! This lesson will introduce you to the basic concepts of Python programming. We'll cover simple operations, variables, and basic data types.",
+    "steps": [
+        {
+            "type": "chunk",
+            "instruction": "In this lesson, we'll learn Python basics step by step. If you need help at any point, type info() to see available commands or help(object) to get Python's built-in help."
+        },
+        {
+            "type": "chunk",
+            "instruction": "Let's start with simple arithmetic. Python can be used as a calculator!"
+        },
+        {
+            "type": "input",
+            "instruction": "Type 2 + 2 to perform addition:",
+            "answer": {
+                "type": "expression",
+                "value": "2 + 2"
+            }
+        },
+        {
+            "type": "input",
+            "instruction": "Now let's try multiplication. Type 3 * 4:",
+            "answer": {
+                "type": "expression",
+                "value": "3 * 4"
+            }
+        },
+        {
+            "type": "chunk",
+            "instruction": "Great! Now let's learn about variables. Variables are containers for storing data values."
+        },
+        {
+            "type": "input",
+            "instruction": "Create a variable named x and assign it the value 10:",
+            "answer": {
+                "type": "assignment",
+                "variable": "x",
+                "value": 10
+            }
+        },
+        {
+            "type": "input",
+            "instruction": "Now type x to see its value:",
+            "answer": {
+                "type": "expression",
+                "value": "x"
+            }
+        },
+        {
+            "type": "input",
+            "instruction": "Let's create another variable y and set it to x + 5:",
+            "answer": {
+                "type": "assignment",
+                "variable": "y",
+                "value": 15
+            }
+        },
+        {
+            "type": "input",
+            "instruction": "Now create a string variable message with the text 'Hello, Python!'",
+            "answer": {
+                "type": "assignment",
+                "variable": "message",
+                "value": "Hello, Python!"
+            }
+        },
+        {
+            "type": "input",
+            "instruction": "Use the print() function to display your message:",
+            "answer": {
+                "type": "expression",
+                "value": "print(message)"
+            }
+        },
+        {
+            "type": "chunk",
+            "instruction": "Excellent! You've learned about basic arithmetic, variables, and printing. Let's try something more interesting - lists!"
+        },
+        {
+            "type": "input",
+            "instruction": "Create a list named numbers containing the values 1, 2, and 3:",
+            "answer": {
+                "type": "assignment",
+                "variable": "numbers",
+                "value": [
+                    1,
+                    2,
+                    3
+                ]
+            }
+        },
+        {
+            "type": "input",
+            "instruction": "Print your list of numbers:",
+            "answer": {
+                "type": "expression",
+                "value": "print(numbers)"
+            }
+        },
+        {
+            "type": "chunk",
+            "instruction": "Congratulations! You've completed the basics lesson. You now know how to:\n- Perform arithmetic\n- Create and use variables\n- Work with strings\n- Create lists\n- Use the print function"
+        }
+    ]
+}
