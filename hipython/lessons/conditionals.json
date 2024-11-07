@@ -1,0 +1,62 @@
+{
+    "lesson_name": "Python Conditionals",
+    "description": "Learn about Python's conditional statements including if, elif, and else. You'll learn how to make decisions in your code based on conditions.",
+    "steps": [
+        {
+            "type": "chunk",
+            "instruction": "Conditional statements help your program make decisions. They use comparison operators like ==, !=, >, <, >=, and <=."
+        },
+        {
+            "type": "input",
+            "instruction": "Create a simple if statement that checks if a number is positive:",
+            "hint": "Use 'if number > 0:'",
+            "answer": {
+                "type": "expression",
+                "value": [
+                    "number = 5\nif number > 0:\n    print('Positive')",
+                    "x = 5\nif x > 0:\n    print('Positive')"
+                ]
+            }
+        },
+        {
+            "type": "input",
+            "instruction": "Create an if-else statement that checks if a number is even or odd:",
+            "hint": "Use the modulo operator % to check divisibility by 2",
+            "answer": {
+                "type": "expression",
+                "value": [
+                    "num = 4\nif num % 2 == 0:\n    print('Even')\nelse:\n    print('Odd')",
+                    "x = 4\nif x % 2 == 0:\n    print('Even')\nelse:\n    print('Odd')"
+                ]
+            }
+        },
+        {
+            "type": "input",
+            "instruction": "Create an if-elif-else statement that categorizes a number as negative, zero, or positive:",
+            "hint": "Use if for negative, elif for zero, and else for positive",
+            "answer": {
+                "type": "expression",
+                "value": [
+                    "num = 0\nif num < 0:\n    print('Negative')\nelif num == 0:\n    print('Zero')\nelse:\n    print('Positive')",
+                    "x = 0\nif x < 0:\n    print('Negative')\nelif x == 0:\n    print('Zero')\nelse:\n    print('Positive')"
+                ]
+            }
+        },
+        {
+            "type": "chunk",
+            "instruction": "Let's try some logical operators: and, or, not"
+        },
+        {
+            "type": "input",
+            "instruction": "Create an if statement using 'and' to check if a number is between 1 and 10:",
+            "hint": "Use 'if num >= 1 and num <= 10:'",
+            "answer": {
+                "type": "expression",
+                "value": [
+                    "num = 5\nif num >= 1 and num <= 10:\n    print('Between 1 and 10')",
+                    "x = 5\nif x >= 1 and x <= 10:\n    print('Between 1 and 10')"
+                ]
+            }
+        }
+    ]
+}

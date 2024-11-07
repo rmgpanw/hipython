@@ -327,7 +327,11 @@ def display_menu():
     """Displays a list of available lessons and allows the user to select one."""
     lessons = {
         1: 'hipython/lessons/basics.json',
-        2: 'hipython/lessons/functions.json',
+        2: 'hipython/lessons/datatypes.json',
+        3: 'hipython/lessons/conditionals.json',
+        4: 'hipython/lessons/functions.json',
+        5: 'hipython/lessons/loops.json',
+        6: 'hipython/lessons/exceptions.json'
     }
     
     while True:
@@ -341,15 +345,18 @@ def display_menu():
             selection = int(input("\nEnter lesson number (0 to quit): "))
             if selection == 0:
                 print("\nGoodbye! Happy coding!")
-                break
+                return
             elif selection in lessons:
                 result = run_lesson(lessons[selection])
                 if result == "exit_lesson":
-                    break
+                    return
             else:
                 print("\n**Invalid selection**\n")
         except ValueError:
             print("\n**Please enter a number**\n")
+        except (EOFError, KeyboardInterrupt):
+            print("\nGoodbye! Happy coding!")
+            return
 
 def run_lesson(lesson_file):
     """Runs the selected lesson and handles returning to the main menu."""
@@ -372,4 +379,3 @@ def start():
 
 if __name__ == "__main__":
     start()
-    

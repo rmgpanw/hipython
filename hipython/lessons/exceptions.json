@@ -1,0 +1,46 @@
+{
+    "lesson_name": "Python Exceptions",
+    "description": "Learn how to handle errors and exceptions in Python using try-except blocks. You'll learn to make your code more robust by gracefully handling potential errors.",
+    "steps": [
+        {
+            "type": "chunk",
+            "instruction": "Exception handling allows your program to gracefully handle errors instead of crashing."
+        },
+        {
+            "type": "input",
+            "instruction": "Write a try-except block that handles division by zero:",
+            "hint": "Use try/except with ZeroDivisionError",
+            "answer": {
+                "type": "expression",
+                "value": [
+                    "try:\n    x = 10/0\nexcept ZeroDivisionError:\n    print('Cannot divide by zero')",
+                    "try:\n    result = 10/0\nexcept ZeroDivisionError:\n    print('Cannot divide by zero')"
+                ]
+            }
+        },
+        {
+            "type": "input",
+            "instruction": "Write a try-except that handles both ValueError and TypeError:",
+            "hint": "You can catch multiple exceptions using parentheses",
+            "answer": {
+                "type": "expression",
+                "value": [
+                    "try:\n    int('abc')\nexcept (ValueError, TypeError):\n    print('Invalid conversion')",
+                    "try:\n    int('xyz')\nexcept (ValueError, TypeError):\n    print('Invalid conversion')"
+                ]
+            }
+        },
+        {
+            "type": "input",
+            "instruction": "Create a try-except-else block that attempts to convert a string to integer:",
+            "hint": "The else clause runs when no exception occurs",
+            "answer": {
+                "type": "expression",
+                "value": [
+                    "try:\n    num = int('123')\nexcept ValueError:\n    print('Invalid number')\nelse:\n    print('Conversion successful')",
+                    "try:\n    x = int('123')\nexcept ValueError:\n    print('Invalid number')\nelse:\n    print('Conversion successful')"
+                ]
+            }
+        }
+    ]
+}
