@@ -5,11 +5,13 @@ description = ""
 authors = ["rmgpanw <rmgpanw@ucl.ac.uk>"]
 readme = "README.md"
 
+# Include all JSON files in the lessons folder
+include = [
+    "hipython/lessons/*.json"
+]
+
 [tool.poetry.dependencies]
 python = "^3.7"
-
-[tool.poetry.include]
-"hipython/lessons/*.json" = "hipython/lessons/*.json"
 
 [build-system]
 requires = ["poetry-core"]
