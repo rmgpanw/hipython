@@ -8,16 +8,9 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.7"
 
+[tool.poetry.include]
+"hipython/lessons/*.json" = "hipython/lessons/*.json"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-include = [
-    "hipython/lessons/basics.json",
-    "hipython/lessons/functions.json",
-    "hipython/lessons/datatypes.json",
-    "hipython/lessons/loops.json",
-    "hipython/lessons/conditionals.json",
-    "hipython/lessons/exceptions.json"
-]
