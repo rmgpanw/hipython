@@ -4,6 +4,7 @@ import sys
 from io import StringIO
 from types import SimpleNamespace
 import traceback
+from pathlib import Path
 
 class Lesson:
     def __init__(self, lesson_file):
@@ -97,7 +98,9 @@ class Lesson:
         print(f"\nProgress: {current_input_step}/{total_steps} exercises completed")
 
     def load_lesson(self):
-        with open(self.lesson_file) as f:
+        lesson_path = Path(__file__).parent / self.lesson_file
+        print(f"Loading lesson from {lesson_path}")
+        with open(lesson_path, 'r') as f:
             return json.load(f)
 
     def display_info(self):
@@ -326,12 +329,12 @@ class Lesson:
 def display_menu():
     """Displays a list of available lessons and allows the user to select one."""
     lessons = {
-        1: 'hipython/lessons/basics.json',
-        2: 'hipython/lessons/datatypes.json',
-        3: 'hipython/lessons/conditionals.json',
-        4: 'hipython/lessons/functions.json',
-        5: 'hipython/lessons/loops.json',
-        6: 'hipython/lessons/exceptions.json'
+        1: 'lessons/basics.json',
+        2: 'lessons/datatypes.json',
+        3: 'lessons/conditionals.json',
+        4: 'lessons/functions.json',
+        5: 'lessons/loops.json',
+        6: 'lessons/exceptions.json'
     }
     
     while True:
